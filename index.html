@@ -42,6 +42,7 @@ aside section+section h2{margin-top:18px}
 .entry{display:grid;grid-template-columns:27mm 1fr;gap:4mm;padding:6px 0;break-inside:avoid}
 .entry+.entry{border-top:1px solid var(--line)}
 .when{color:var(--muted);font-size:9.5pt;padding-top:1px;white-space:nowrap}
+html[lang="en-GB"] .when{font-size:8.8pt;letter-spacing:-.15px}
 .what h3{margin:0;font-size:10.8pt;font-weight:600}
 .org{color:var(--muted);font-size:9.8pt}
 .what ul{margin:4px 0 0;padding-left:15px}
@@ -90,6 +91,12 @@ aside section+section h2{margin-top:14px}
   .chip[aria-pressed="true"]{background:var(--accent);border-color:var(--accent);color:#fff}
   .chip:focus-visible,.step:focus-visible,.copy:focus-visible,.more-btn:focus-visible{outline:2px solid var(--warm);outline-offset:2px}
   .tb-spacer{flex:1}
+  .seg{display:inline-flex}
+  .seg .chip{border-radius:0;padding:3px 10px;font-weight:500;letter-spacing:.3px}
+  .seg .chip:first-child{border-radius:999px 0 0 999px}
+  .seg .chip:last-child{border-radius:0 999px 999px 0;margin-left:-1px}
+  .print-btn{display:inline-flex;align-items:center;gap:6px}
+  .print-btn:focus-visible{outline:2px solid var(--warm);outline-offset:2px}
   .tb-hint{font-size:9pt;color:var(--muted)}
 
   /* Karrierepfad */
@@ -205,6 +212,12 @@ aside section+section h2{margin-top:14px}
     <button class="chip" type="button" data-filter="zert" aria-pressed="false">Zertifikate</button>
     <button class="chip" type="button" id="compact" aria-pressed="false">Kompakt</button>
     <button class="chip" type="button" id="expand" aria-pressed="false">Alle Details</button>
+    <span class="tb-spacer"></span>
+    <div class="seg" role="group" aria-label="Sprache">
+      <button class="chip lang-btn" type="button" data-lang="de" lang="de" aria-pressed="true" title="Deutsch">DE</button>
+      <button class="chip lang-btn" type="button" data-lang="en" lang="en" aria-pressed="false" title="English">EN</button>
+    </div>
+    <button class="chip print-btn" type="button" id="print" aria-label="Lebenslauf drucken"><svg viewBox="0 0 24 24" width="14" height="14" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M6 9V3h12v6"/><rect x="3" y="9" width="18" height="8" rx="2"/><path d="M6 14h12v7H6z"/></svg><span>Drucken</span></button>
   </div>
   <div class="tb-row">
     <div class="path" role="list" aria-label="Karriere bei der Avanta Group">
@@ -516,11 +529,12 @@ aside section+section h2{margin-top:14px}
   });
 
   // Kopieren
+  function T(s){ return window.cvT ? window.cvT(s) : s; }
   [].forEach.call(document.querySelectorAll('.copy'), function(b){
     b.addEventListener('click', function(){
       var t = b.getAttribute('data-copy');
-      function ok(){ b.textContent = 'Kopiert'; b.classList.add('done'); setTimeout(function(){ b.textContent = 'Kopieren'; b.classList.remove('done'); }, 1600); }
-      function fallback(){ var a = b.previousElementSibling, r = document.createRange(); r.selectNodeContents(a); var s = getSelection(); s.removeAllRanges(); s.addRange(r); b.textContent = 'Markiert'; setTimeout(function(){ b.textContent = 'Kopieren'; }, 1600); }
+      function ok(){ b.textContent = T('Kopiert'); b.classList.add('done'); setTimeout(function(){ b.textContent = T('Kopieren'); b.classList.remove('done'); }, 1600); }
+      function fallback(){ var a = b.previousElementSibling, r = document.createRange(); r.selectNodeContents(a); var s = getSelection(); s.removeAllRanges(); s.addRange(r); b.textContent = T('Markiert'); setTimeout(function(){ b.textContent = T('Kopieren'); }, 1600); }
       try { navigator.clipboard.writeText(t).then(ok, fallback); } catch(e){ fallback(); }
     });
   });
@@ -541,6 +555,244 @@ aside section+section h2{margin-top:14px}
     function tick(t){ if (!t0) t0 = t + 600; var p = Math.min(1, Math.max(0, (t - t0) / dur)); c.textContent = Math.round(to * (1 - Math.pow(1 - p, 3))); if (p < 1) requestAnimationFrame(tick); }
     c.textContent = '0'; requestAnimationFrame(tick);
   });
+})();
+</script>
+<script>
+/* ===== Sprache DE / EN (British English) =====
+   Jeder deutsche Text auf der Seite hat hier seine englische Entsprechung.
+   Wird ein deutscher Text geändert, muss der Schlüssel hier mitgeändert werden. */
+(function(){
+  var EN = {
+    /* Kopfzeile */
+    "Zeigen": "Show",
+    "Alles": "All",
+    "Beruf": "Work",
+    "Ausbildung": "Education",
+    "Zertifikate": "Certificates",
+    "Kompakt": "Compact",
+    "Alle Details": "All details",
+    "Drucken": "Print",
+    "Praktikant": "Intern",
+    "08.2023": "08/2023",
+    "08.2024": "08/2024",
+    "06.2025": "06/2025",
+    "04.2026 · heute": "04/2026 · present",
+
+    /* Persönliches */
+    "Persönliches": "Personal details",
+    "Jahrgang": "Year of birth",
+    "Nationalität": "Nationality",
+    "Schweizer": "Swiss",
+    "Wohnort": "Place of residence",
+    "Bremgarten, Aargau": "Bremgarten, Aargau (CH)",
+    "Führerausweis": "Driving licence",
+    "Kategorie B": "Category B (car)",
+    "Weiteres": "Other",
+    "Nichtraucher": "Non-smoker",
+    "Telefon": "Phone",
+    "076 746 86 29": "+41 76 746 86 29",
+    "E-Mail": "Email",
+    "Kopieren": "Copy",
+    "Kopiert": "Copied",
+    "Markiert": "Selected",
+
+    /* Sprachen & Interessen */
+    "Sprachen": "Languages",
+    "Deutsch": "German",
+    "Muttersprache": "Native language",
+    "Englisch": "English",
+    "C1, Cambridge Advanced; Sprachaufenthalt Dublin 2022; beruflich im Einsatz": "C1, Cambridge Advanced; language course in Dublin, 2022; used at work",
+    "Französisch": "French",
+    "Gute Schulkenntnisse, Welschlandeinsatz": "Good school knowledge; work placement in French-speaking Switzerland",
+    "Interessen": "Interests",
+    "Snowboarden, Joggen,": "Snowboarding, jogging,",
+    "Musik": "Music",
+
+    /* Kopf Hauptspalte */
+    "Assistant Manager Audit · Student BSc Betriebsökonomie (Financial Management)": "Assistant Manager Audit · Part-time student, BSc Business Administration (Financial Management)",
+    "Kaufmann EFZ mit Berufsmaturität und über drei Jahren Praxis in Treuhand, Buchhaltung und Wirtschaftsprüfung. Innerhalb von zweieinhalb Jahren vom Praktikanten zum Assistant Manager Audit befördert. Zuverlässig, analytisch und IT-affin; bildet sich berufsbegleitend an der ZHAW weiter.": "Qualified commercial employee (Swiss Federal VET Diploma) with a Federal Vocational Baccalaureate and more than three years’ experience in fiduciary services, accounting and auditing. Promoted from intern to Assistant Manager Audit within two and a half years. Reliable, analytical and IT-savvy; currently studying part-time at ZHAW alongside work.",
+
+    /* Berufserfahrung */
+    "Berufserfahrung": "Professional experience",
+    "(Fortsetzung)": "(continued)",
+    "04.2026 – heute": "04/2026 – present",
+    "06.2025 – 03.2026": "06/2025 – 03/2026",
+    "08.2024 – 05.2025": "08/2024 – 05/2025",
+    "08.2023 – 07.2024": "08/2023 – 07/2024",
+    "60 %": "60%",
+    "60–80 %": "60–80%",
+    "100 %": "100%",
+    "Avanta Group AG, Zürich": "Avanta Group AG, Zurich",
+    "Prüfung von Jahresrechnungen im Rahmen ordentlicher und eingeschränkter Revisionen": "Auditing annual financial statements in ordinary and limited statutory audits",
+    "Mandate aus unterschiedlichsten Branchen": "Clients from a wide range of industries",
+    "Analytische Prüfungshandlungen, Detailprüfungen und Dokumentation": "Analytical procedures, tests of details and audit documentation",
+    "Kundenbesprechungen vor Ort": "On-site client meetings",
+    "Beförderung zum Assistant Manager; Pensum seit 09.2026 auf 60 % reduziert wegen Teilzeitstudium.": "Promoted to Assistant Manager; working hours reduced to 60% since 09/2026 due to part-time studies.",
+    "Interner Wechsel von der Accounting- in die Audit-Abteilung.": "Internal transfer from the Accounting to the Audit department.",
+    "Debitoren- und Kreditorenbuchhaltungen inkl. Zahlungsverkehr für mittelgrosse Unternehmen": "Accounts receivable and payable, including payment processing, for medium-sized companies",
+    "Führen von nationalen und internationalen Kundenbuchhaltungen": "Bookkeeping for national and international clients",
+    "Unterstützung bei Jahresabschlüssen, Vorbereitung von MWST-Abrechnungen": "Supporting year-end closings; preparing VAT returns",
+    "Korrespondenz mit Kunden und Behörden auf Deutsch und Englisch": "Correspondence with clients and authorities in German and English",
+    "Onboarding und Strukturierung eines KMU in einer Umstrukturierungsphase": "Onboarding and structuring an SME during a restructuring phase",
+    "Präsentationen zur Prozessstandardisierung für die Abteilung": "Presentations on process standardisation for the department",
+    "Aus dem Zwischenzeugnis": "From the interim reference",
+    "überaus zuverlässig, sehr verantwortungsbewusst": "exceptionally reliable, highly responsible",
+    "; Leistungen qualitativ und quantitativ sehr gut, sehr gute Teamfähigkeit und hohe Dienstleistungsorientierung.": "; very good performance in both quality and quantity, a very good team player with a strong service orientation.",
+    "Zwischenzeugnis vom 31.05.2025, Head Accounting / Partner": "Interim reference dated 31 May 2025, Head of Accounting / Partner",
+
+    "Praktikant Treuhand": "Intern, Fiduciary Services",
+    "Avanta Group AG (vormals Treureva AG), Baar · Praxisjahr WMS": "Avanta Group AG (formerly Treureva AG), Baar · placement year",
+    "Buchhaltung: Finanz- und Nebenbuchhaltungen, Zahlungsverkehr, MWST, einfache Lohnmandate": "Accounting: general and subsidiary ledgers, payments, VAT, simple payroll mandates",
+    "Audit: Mitarbeit bei Revisionen, Prüfungshandlungen zu Bilanz und Erfolgsrechnung": "Audit: assisting on audits, audit procedures for the balance sheet and income statement",
+    "IT: First Level Support, Reporting mit Power BI, Excel-Tools, Projekt digitaler Posteingang": "IT: first-level support, reporting with Power BI, Excel tools, digital inbox project",
+    "Spezialmandat: tägliche Prüfung von Hypothekar-Transaktionen bei einer Grossbank": "Special assignment: daily review of mortgage transactions at a major bank",
+    "Administration: Empfang, Korrespondenz, Kundenanlässe": "Administration: reception, correspondence, client events",
+    "Aus dem Praktikumszeugnis": "From the internship reference",
+    "Arbeit": "Work completed",
+    "stets zu unserer vollen Zufriedenheit": "always to our complete satisfaction",
+    "; effizient, zuverlässig, selbstständig und belastbar. Nach dem Praktikum fest übernommen.": "; efficient, reliable, independent and resilient. Offered a permanent position after the internship.",
+    "Praktikumszeugnis vom 31.07.2024, CEO": "Internship reference dated 31 July 2024, CEO",
+
+    /* Seitenspalte Seite 2 */
+    "IT-Kenntnisse": "IT skills",
+    "Fachsoftware": "Business software",
+    "Excel, Word, PowerPoint, Outlook – SIZ Advanced-User": "Excel, Word, PowerPoint, Outlook – SIZ Advanced User",
+    "Datenanalysen und Reporting": "Data analysis and reporting",
+    "Excel-Tools": "Excel tools",
+    "Eigene Auswertungs- und Arbeitstools": "Self-built analysis and productivity tools",
+    "Programmieren & Datenanalyse": "Programming & data analysis",
+    "Grundlagen aus ZHAW-Modulen": "Fundamentals from ZHAW modules",
+    "IT-Support": "IT support",
+    "First Level Support für Mitarbeitende": "First-level support for staff",
+    "Engagement": "Volunteering",
+    "Kursleiter (Mitleiter)": "Course co-leader",
+    "J+S-Lagerleiterkurs, Pfadibewegung Schweiz, 2024": "J+S camp leader training, Swiss Guide and Scout Movement, 2024",
+    "J+S-Lagerleiter": "J+S camp leader",
+    "Lagersport/Trekking, seit 2023": "Camp sports/trekking, since 2023",
+    "J+S-Leiter Kindersport": "J+S children’s sport leader",
+    "Lagersport/Trekking und Allround, seit 2021": "Camp sports/trekking and all-round, since 2021",
+    "Pfadi Wohle": "Pfadi Wohle (Scouts)",
+    "Pfadiname «Joker»; Leiter, zuletzt Abteilungsleiter bis 03.2026": "Scout name ‘Joker’; leader, most recently head of the scout group until 03/2026",
+    "Militärdienst": "Military service",
+    "Soldat, Aufklärer/Fahrer": "Private, reconnaissance/driver",
+    "Diensttage": "Service days",
+    "Noch 98 Diensttage": "98 days remaining",
+    "Voraussichtlich 5 WKs, 1. WK absolviert": "Approx. 5 refresher courses; first one completed",
+
+    /* Ausbildung */
+    "09.2026 – heute": "09/2026 – present",
+    "08.2025 – 01.2026": "08/2025 – 01/2026",
+    "08.2020 – 06.2024": "08/2020 – 06/2024",
+    "BSc Betriebsökonomie, Vertiefung Financial Management": "BSc Business Administration (Financial Management)",
+    "ZHAW School of Management and Law, Winterthur · Teilzeitstudium": "ZHAW School of Management and Law, Winterthur · part-time",
+    "Wirtschaftsingenieurwesen (1 Semester)": "Engineering and Management (1 semester)",
+    "Module u. a. Projektmanagement (6.0), Explorative Datenanalyse (5.5), Programmieren (5.0). Neuorientierung zur Betriebsökonomie.": "Modules incl. Project Management (6.0), Exploratory Data Analysis (5.5), Programming (5.0). Switched to Business Administration.",
+    "Kaufmann EFZ mit Berufsmaturität Typ Wirtschaft": "Commercial Employee EFZ with Vocational Baccalaureate",
+    "Kantonsschule Baden, Wirtschaftsmittelschule": "Kantonsschule Baden, business school (WMS)",
+    "BM-Gesamtnote 5.1 · Finanz- und Rechnungswesen 5.5 · Mathematik 5.5 · Englisch 5.5 · Interdisziplinäre Projektarbeit «Salärbildung im Treuhand» 5.0": "Overall grade 5.1 · Finance and Accounting 5.5 · Mathematics 5.5 · English 5.5 · Project ‘Salary setting in fiduciary services’ 5.0",
+    "Alle BM-Noten": "All baccalaureate grades",
+    "Finanz- und Rechnungswesen": "Finance and Accounting",
+    "Mathematik": "Mathematics",
+    "Wirtschaft und Recht": "Economics and Law",
+    "Geschichte und Politik": "History and Politics",
+    "Technik und Umwelt": "Technology and Environment",
+    "Interdisziplinäres Arbeiten": "Interdisciplinary Work",
+    "Bezirksschule": "Bezirksschule (lower secondary, top level)",
+    "Stadtschulhaus Bremgarten": "Stadtschulhaus, Bremgarten",
+
+    /* Zertifikate */
+    "04.2023": "04/2023",
+    "03.2023": "03/2023",
+    "Mit sehr gutem Erfolg bestanden, Note 5.5": "Passed with very good results, grade 5.5",
+    "Teilnoten": "Component grades",
+    "Kommunikation": "Communication",
+    "Texte": "Word processing",
+    "Tabellen": "Spreadsheets",
+    "Präsentation": "Presentations",
+    "Score nach Prüfungsteil": "Score by paper",
+    "Cambridge English Scale, C1-Bereich 180–199, ab 200 Niveau C2. Achse 160–210.": "Cambridge English Scale: C1 range 180–199, C2 level from 200. Axis 160–210.",
+    "Arbeitszeugnisse und Diplome sowie Referenzen auf Anfrage.": "References and diplomas available on request. Swiss grades: 6 = best, 4 = pass.",
+
+    /* Attribute */
+    "Lebenslauf erkunden": "Explore CV",
+    "Karriere bei der Avanta Group": "Career at Avanta Group",
+    "Sprache": "Language",
+    "Lebenslauf drucken": "Print CV",
+    "Porträt Severin Strebel": "Portrait of Severin Strebel",
+    "Telefonnummer kopieren": "Copy phone number",
+    "E-Mail-Adresse kopieren": "Copy email address",
+    "Meine Top-Songs 2025 auf Spotify": "My top songs of 2025 on Spotify",
+    "147 von 245 Diensttagen geleistet, 60 Prozent": "147 of 245 service days completed, 60 per cent",
+
+    /* Dokument */
+    "Lebenslauf Severin Strebel": "CV – Severin Strebel",
+    "Lebenslauf von Severin Strebel, Assistant Manager Audit und Student BSc Betriebsökonomie an der ZHAW.": "CV of Severin Strebel, Assistant Manager Audit and BSc Business Administration student at ZHAW."
+  };
+
+  var REV = {}; Object.keys(EN).forEach(function(k){ REV[EN[k]] = k; });
+  var ATTRS = ['aria-label', 'title', 'alt', 'data-copy'];
+  var orig = new WeakMap();
+  var lang = 'de';
+  function norm(s){ return s.replace(/\s+/g, ' ').trim(); }
+  function de(s){ var n = norm(s); return EN[n] !== undefined ? n : (REV[n] !== undefined ? REV[n] : n); }
+  window.cvT = function(s){ return lang === 'en' && EN[s] !== undefined ? EN[s] : s; };
+
+  function textNodes(){
+    var out = [], w = document.createTreeWalker(document.body, NodeFilter.SHOW_TEXT, {
+      acceptNode: function(n){ return /^(SCRIPT|STYLE)$/.test(n.parentNode.nodeName) ? NodeFilter.FILTER_REJECT : NodeFilter.FILTER_ACCEPT; }
+    }), n;
+    while ((n = w.nextNode())) if (n.nodeValue.trim()) out.push(n);
+    return out;
+  }
+
+  function apply(l){
+    lang = l;
+    textNodes().forEach(function(n){
+      if (!orig.has(n)) orig.set(n, de(n.nodeValue));
+      var src = orig.get(n), target = l === 'en' && EN[src] !== undefined ? EN[src] : src;
+      var m = n.nodeValue.match(/^(\s*)[\s\S]*?(\s*)$/);
+      var next = m[1] + target + m[2];
+      if (n.nodeValue !== next) n.nodeValue = next;
+    });
+    [].forEach.call(document.querySelectorAll('[' + ATTRS.join('],[') + ']'), function(el){
+      ATTRS.forEach(function(a){
+        if (!el.hasAttribute(a)) return;
+        var key = 'data-de-' + a;
+        if (!el.hasAttribute(key)) el.setAttribute(key, el.getAttribute(a));
+        var src = el.getAttribute(key);
+        el.setAttribute(a, l === 'en' && EN[src] !== undefined ? EN[src] : src);
+      });
+    });
+    document.documentElement.lang = l === 'en' ? 'en-GB' : 'de-CH';
+    document.title = window.cvT('Lebenslauf Severin Strebel');
+    var md = document.querySelector('meta[name="description"]');
+    if (md) { if (!md.dataset.de) md.dataset.de = md.content; md.content = l === 'en' ? EN[md.dataset.de] || md.dataset.de : md.dataset.de; }
+    [].forEach.call(document.querySelectorAll('.lang-btn'), function(b){ b.setAttribute('aria-pressed', b.getAttribute('data-lang') === l ? 'true' : 'false'); });
+  }
+
+  function setLang(l, remember){
+    apply(l);
+    if (!remember) return;
+    try { localStorage.setItem('cv-lang', l); } catch(e){}
+    try {
+      var u = new URL(location.href);
+      if (l === 'en') u.searchParams.set('lang', 'en'); else u.searchParams.delete('lang');
+      history.replaceState(null, '', u.pathname + u.search + u.hash);
+    } catch(e){}
+  }
+
+  [].forEach.call(document.querySelectorAll('.lang-btn'), function(b){
+    b.addEventListener('click', function(){ setLang(b.getAttribute('data-lang'), true); });
+  });
+  document.getElementById('print').addEventListener('click', function(){ window.print(); });
+
+  var start = 'de';
+  try {
+    var q = new URLSearchParams(location.search).get('lang');
+    if (q === 'en' || q === 'de') start = q;
+    else if (localStorage.getItem('cv-lang') === 'en') start = 'en';
+  } catch(e){}
+  if (start === 'en') setLang('en', false);
 })();
 </script>
 </body>
