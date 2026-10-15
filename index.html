@@ -4,16 +4,25 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Lebenslauf Severin Strebel</title>
-<meta name="robots" content="noindex, nofollow">
+<link rel="icon" href="favicon.svg" type="image/svg+xml">
+<link rel="apple-touch-icon" href="apple-touch-icon.png">
+<link rel="canonical" href="https://severin-strebel.ch/">
+<link rel="alternate" hreflang="de" href="https://severin-strebel.ch/">
+<link rel="alternate" hreflang="en" href="https://severin-strebel.ch/en/">
+<link rel="alternate" hreflang="x-default" href="https://severin-strebel.ch/">
 <meta name="description" content="Lebenslauf von Severin Strebel, Assistant Manager Audit und Student BSc Betriebsökonomie an der ZHAW.">
 <meta property="og:title" content="Severin Strebel – Lebenslauf">
 <meta property="og:description" content="Assistant Manager Audit · Student BSc Betriebsökonomie (Financial Management)">
 <meta property="og:image" content="https://severin-strebel.ch/portrait.jpg">
 <meta property="og:url" content="https://severin-strebel.ch/">
 <meta property="og:type" content="profile">
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link href="https://fonts.googleapis.com/css2?family=Source+Sans+3:wght@400;500;600&family=Source+Serif+4:wght@500;600&display=swap" rel="stylesheet">
+<meta property="og:locale" content="de_CH">
+<meta property="og:locale:alternate" content="en_GB">
+<link rel="preload" href="fonts/source-sans-3.woff" as="font" type="font/woff" crossorigin>
 <style>
+/* Schriften lokal (keine Verbindung zu Google) – Lizenz: SIL Open Font License, siehe fonts/ */
+@font-face{font-family:"Source Sans 3";font-style:normal;font-weight:400 600;font-display:swap;src:url(fonts/source-sans-3.woff) format("woff")}
+@font-face{font-family:"Source Serif 4";font-style:normal;font-weight:500 600;font-display:swap;src:url(fonts/source-serif-4.woff) format("woff")}
 /* ===== Basis: unverändertes A4-Layout (bestimmt den Druck) ===== */
 :root{
   --ink:#1f2328; --muted:#5b636e; --line:#d9dde3; --accent:#0f4c5c; --accent-soft:#e7f0f2; --side:#f4f6f8;
@@ -153,9 +162,14 @@ aside section+section h2{margin-top:14px}
 
   /* Seitenspalte */
   .kv dd{position:relative}
+  /* Klickflächen mind. 24 px, ohne das Layout zu verschieben */
+  .kv a{display:inline-block;padding:3px 0;margin:-3px 0}
+  .music-link{padding:5px;margin:-5px -5px -5px -2px;border-radius:50%}
+  .music-link:focus-visible{outline:2px solid var(--warm);outline-offset:0}
+  .more-btn{min-height:24px}
   .kv a{border-bottom:1px dotted transparent;transition:border-color .2s,color .2s}
   .kv a:hover{color:var(--accent);border-bottom-color:var(--accent)}
-  .copy{display:inline-flex;position:absolute;right:0;top:50%;transform:translateY(-50%);font:inherit;font-size:8pt;line-height:1;padding:3px 6px;border:1px solid var(--line);border-radius:4px;background:var(--paper);color:var(--muted);cursor:pointer;opacity:0;transition:opacity .2s,color .2s,border-color .2s}
+  .copy{display:inline-flex;align-items:center;min-height:24px;min-width:24px;position:absolute;right:0;top:50%;transform:translateY(-50%);font:inherit;font-size:8pt;line-height:1;padding:4px 8px;border:1px solid var(--line);border-radius:4px;background:var(--paper);color:var(--muted);cursor:pointer;opacity:0;transition:opacity .2s,color .2s,border-color .2s}
   .kv dd:hover .copy,.copy:focus-visible{opacity:1}
   .copy:hover{color:var(--accent);border-color:var(--accent)}
   .copy.done{opacity:1;color:#fff;background:var(--accent);border-color:var(--accent)}
@@ -243,9 +257,9 @@ aside section+section h2{margin-top:14px}
   <section>
     <h2>Sprachen</h2>
     <ul class="list">
-      <li><div class="lang"><b>Deutsch</b><span class="dots" data-level="5">●●●●●</span></div><span>Muttersprache</span></li>
-      <li><div class="lang"><b>Englisch</b><span class="dots" data-level="4">●●●●<i>●</i></span></div><span>C1, Cambridge Advanced; Sprachaufenthalt Dublin 2022; beruflich im Einsatz</span></li>
-      <li><div class="lang"><b>Französisch</b><span class="dots" data-level="2">●●<i>●●●</i></span></div><span>Gute Schulkenntnisse, Welschlandeinsatz</span></li>
+      <li><div class="lang"><b>Deutsch</b><span class="dots" data-level="5" role="img" aria-label="Niveau 5 von 5">●●●●●</span></div><span>Muttersprache</span></li>
+      <li><div class="lang"><b>Englisch</b><span class="dots" data-level="4" role="img" aria-label="Niveau 4 von 5">●●●●<i>●</i></span></div><span>C1, Cambridge Advanced; Sprachaufenthalt Dublin 2022; beruflich im Einsatz</span></li>
+      <li><div class="lang"><b>Französisch</b><span class="dots" data-level="2" role="img" aria-label="Niveau 2 von 5">●●<i>●●●</i></span></div><span>Schulkenntnisse, Welschlandeinsatz</span></li>
     </ul>
   </section>
   <section>
@@ -259,7 +273,7 @@ aside section+section h2{margin-top:14px}
   <header>
     <h1>Severin Strebel</h1>
     <p class="role">Assistant Manager Audit · Student BSc Betriebsökonomie (Financial Management)</p>
-    <p class="profile">Kaufmann EFZ mit Berufsmaturität und über drei Jahren Praxis in Treuhand, Buchhaltung und Wirtschaftsprüfung. Innerhalb von zweieinhalb Jahren vom Praktikanten zum Assistant Manager Audit befördert. Zuverlässig, analytisch und IT-affin; bildet sich berufsbegleitend an der ZHAW weiter.</p>
+    <p class="profile">Kaufmann EFZ mit Berufsmaturität und über drei Jahren Praxis in Treuhand, Buchhaltung und Wirtschaftsprüfung. In weniger als drei Jahren vom Praktikanten zum Assistant Manager Audit befördert. Zuverlässig, analytisch und IT-affin; bildet sich berufsbegleitend an der ZHAW weiter.</p>
   </header>
 
   <section>
@@ -268,7 +282,7 @@ aside section+section h2{margin-top:14px}
     <div class="entry" id="e-am" data-type="beruf">
       <div class="when">04.2026 – heute</div>
       <div class="what">
-        <h3>Assistant Manager Audit <span class="tag">60 %</span></h3>
+        <h3>Assistant Manager Audit <span class="tag">60&nbsp;%</span></h3>
         <div class="org">Avanta Group AG, Zürich</div>
         <ul>
           <li>Prüfung von Jahresrechnungen im Rahmen ordentlicher und eingeschränkter Revisionen</li>
@@ -276,14 +290,14 @@ aside section+section h2{margin-top:14px}
           <li>Analytische Prüfungshandlungen, Detailprüfungen und Dokumentation</li>
           <li>Kundenbesprechungen vor Ort</li>
         </ul>
-        <div class="note">Beförderung zum Assistant Manager; Pensum seit 09.2026 auf 60 % reduziert wegen Teilzeitstudium.</div>
+        <div class="note">Beförderung zum Assistant Manager; Pensum seit 09.2026 auf 60&nbsp;% reduziert wegen Teilzeitstudium.</div>
       </div>
     </div>
 
     <div class="entry" id="e-aud" data-type="beruf">
       <div class="when">06.2025 – 03.2026</div>
       <div class="what">
-        <h3>Associate Audit <span class="tag">60–80 %</span></h3>
+        <h3>Associate Audit <span class="tag">60–80&nbsp;%</span></h3>
         <div class="org">Avanta Group AG, Zürich</div>
         <div class="note">Interner Wechsel von der Accounting- in die Audit-Abteilung.</div>
       </div>
@@ -292,7 +306,7 @@ aside section+section h2{margin-top:14px}
     <div class="entry" id="e-acc" data-type="beruf">
       <div class="when">08.2024 – 05.2025</div>
       <div class="what">
-        <h3>Associate Accounting <span class="tag">100 %</span></h3>
+        <h3>Associate Accounting <span class="tag">100&nbsp;%</span></h3>
         <div class="org">Avanta Group AG, Zürich</div>
         <ul>
           <li>Debitoren- und Kreditorenbuchhaltungen inkl. Zahlungsverkehr für mittelgrosse Unternehmen</li>
@@ -302,6 +316,7 @@ aside section+section h2{margin-top:14px}
           <li>Onboarding und Strukturierung eines KMU in einer Umstrukturierungsphase</li>
           <li>Präsentationen zur Prozessstandardisierung für die Abteilung</li>
         </ul>
+        <div class="note">Inkl. Rekrutenschule, Schweizer Armee, 01.2025 – 05.2025.</div>
         <button class="more-btn" type="button">Aus dem Zwischenzeugnis</button>
         <div class="more"><div><div class="panel">
           <q>überaus zuverlässig, sehr verantwortungsbewusst</q>; Leistungen qualitativ und quantitativ sehr gut, sehr gute Teamfähigkeit und hohe Dienstleistungsorientierung.
@@ -352,7 +367,7 @@ aside section+section h2{margin-top:14px}
     <div class="entry" id="e-prakt" data-type="beruf">
       <div class="when">08.2023 – 07.2024</div>
       <div class="what">
-        <h3>Praktikant Treuhand <span class="tag">100 %</span></h3>
+        <h3>Praktikant Treuhand <span class="tag">100&nbsp;%</span></h3>
         <div class="org">Avanta Group AG (vormals Treureva AG), Baar · Praxisjahr WMS</div>
         <ul>
           <li>Buchhaltung: Finanz- und Nebenbuchhaltungen, Zahlungsverkehr, MWST, einfache Lohnmandate</li>
@@ -598,14 +613,14 @@ aside section+section h2{margin-top:14px}
     "Englisch": "English",
     "C1, Cambridge Advanced; Sprachaufenthalt Dublin 2022; beruflich im Einsatz": "C1, Cambridge Advanced; language course in Dublin, 2022; used at work",
     "Französisch": "French",
-    "Gute Schulkenntnisse, Welschlandeinsatz": "Good school knowledge; work placement in French-speaking Switzerland",
+    "Schulkenntnisse, Welschlandeinsatz": "School-level knowledge; work placement in French-speaking Switzerland",
     "Interessen": "Interests",
     "Snowboarden, Joggen,": "Snowboarding, jogging,",
     "Musik": "Music",
 
     /* Kopf Hauptspalte */
     "Assistant Manager Audit · Student BSc Betriebsökonomie (Financial Management)": "Assistant Manager Audit · Part-time student, BSc Business Administration (Financial Management)",
-    "Kaufmann EFZ mit Berufsmaturität und über drei Jahren Praxis in Treuhand, Buchhaltung und Wirtschaftsprüfung. Innerhalb von zweieinhalb Jahren vom Praktikanten zum Assistant Manager Audit befördert. Zuverlässig, analytisch und IT-affin; bildet sich berufsbegleitend an der ZHAW weiter.": "Kaufmann EFZ (Swiss Federal VET Diploma in Business) with a Federal Vocational Baccalaureate and more than three years’ experience in fiduciary services, accounting and auditing. Promoted from intern to Assistant Manager Audit within two and a half years. Reliable, analytical and IT-savvy; currently studying part-time at ZHAW alongside work.",
+    "Kaufmann EFZ mit Berufsmaturität und über drei Jahren Praxis in Treuhand, Buchhaltung und Wirtschaftsprüfung. In weniger als drei Jahren vom Praktikanten zum Assistant Manager Audit befördert. Zuverlässig, analytisch und IT-affin; bildet sich berufsbegleitend an der ZHAW weiter.": "Kaufmann EFZ (Swiss Federal VET Diploma in Business) with a Federal Vocational Baccalaureate and more than three years’ experience in fiduciary services, accounting and auditing. Promoted from intern to Assistant Manager Audit in less than three years. Reliable, analytical and IT-savvy; currently studying part-time at ZHAW alongside work.",
 
     /* Berufserfahrung */
     "Berufserfahrung": "Professional experience",
@@ -623,6 +638,7 @@ aside section+section h2{margin-top:14px}
     "Analytische Prüfungshandlungen, Detailprüfungen und Dokumentation": "Analytical procedures, tests of details and audit documentation",
     "Kundenbesprechungen vor Ort": "On-site client meetings",
     "Beförderung zum Assistant Manager; Pensum seit 09.2026 auf 60 % reduziert wegen Teilzeitstudium.": "Promoted to Assistant Manager; working hours reduced to 60% since 09/2026 due to part-time studies.",
+    "Inkl. Rekrutenschule, Schweizer Armee, 01.2025 – 05.2025.": "Including basic military training (recruit school), Swiss Armed Forces, 01/2025 – 05/2025.",
     "Interner Wechsel von der Accounting- in die Audit-Abteilung.": "Internal transfer from the Accounting to the Audit department.",
     "Debitoren- und Kreditorenbuchhaltungen inkl. Zahlungsverkehr für mittelgrosse Unternehmen": "Accounts receivable and payable, including payment processing, for medium-sized companies",
     "Führen von nationalen und internationalen Kundenbuchhaltungen": "Bookkeeping for national and international clients",
@@ -710,6 +726,9 @@ aside section+section h2{margin-top:14px}
 
     /* Attribute */
     "Lebenslauf erkunden": "Explore CV",
+    "Niveau 5 von 5": "Level 5 of 5",
+    "Niveau 4 von 5": "Level 4 of 5",
+    "Niveau 2 von 5": "Level 2 of 5",
     "Karriere bei der Avanta Group": "Career at Avanta Group",
     "Sprache": "Language",
     "Lebenslauf drucken": "Print CV",
@@ -729,7 +748,7 @@ aside section+section h2{margin-top:14px}
   var orig = new WeakMap();
   var lang = 'de';
   function norm(s){ return s.replace(/\s+/g, ' ').trim(); }
-  function de(s){ var n = norm(s); return EN[n] !== undefined ? n : (REV[n] !== undefined ? REV[n] : n); }
+  function de(s){ var n = norm(s); return (EN[n] === undefined && REV[n] !== undefined) ? REV[n] : s.trim(); }
   window.cvT = function(s){ return lang === 'en' && EN[s] !== undefined ? EN[s] : s; };
 
   function textNodes(){
@@ -744,7 +763,7 @@ aside section+section h2{margin-top:14px}
     lang = l;
     textNodes().forEach(function(n){
       if (!orig.has(n)) orig.set(n, de(n.nodeValue));
-      var src = orig.get(n), target = l === 'en' && EN[src] !== undefined ? EN[src] : src;
+      var src = orig.get(n), key = norm(src), target = l === 'en' && EN[key] !== undefined ? EN[key] : src;
       var m = n.nodeValue.match(/^(\s*)[\s\S]*?(\s*)$/);
       var next = m[1] + target + m[2];
       if (n.nodeValue !== next) n.nodeValue = next;
